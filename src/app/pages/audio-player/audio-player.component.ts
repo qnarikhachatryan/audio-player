@@ -33,7 +33,11 @@ export class AudioPlayerComponent implements OnInit, OnDestroy {
     playStream(url: string): void {
         this.audioService.playStream(url)
             .pipe(takeUntil(this.audioService.stop$))
-            .subscribe();
+            .subscribe((state) => {
+                if (state === 'ended') {
+                    this.next();
+                }
+            });
     }
 
     openAudio(audio: IAudio, index: number): void {
@@ -59,15 +63,18 @@ export class AudioPlayerComponent implements OnInit, OnDestroy {
     }
 
     next(): void {
-        const index: number = this.currentAudio.index + 1;
+        const index: number = this.currentAudio.index + 1 === this.audioList.length
+            ? 0 : this.currentAudio.index + 1;
         const audio: IAudio = this.audioList[index];
         this.openAudio(audio, index);
+        this.currentAudio = { index, audio };
     }
 
     previous(): void {
         const index: number = this.currentAudio?.index - 1;
         const audio: IAudio = this.audioList[index];
         this.openAudio(audio, index);
+        this.currentAudio = { index, audio };
     }
 
     onSliderChangeEnd(change: any) {

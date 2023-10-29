@@ -10,12 +10,13 @@ export class AudioService {
     public stop$: Observable<void> = this._stop$.asObservable();
 
     private audioObj: HTMLAudioElement = new Audio();
-    private audioEvents: string[] = ['play', 'playing', 'pause', 'timeupdate'];
+    private audioEvents: string[] = ['play', 'playing', 'pause', 'timeupdate', 'ended'];
 
     public state: IAudioState = {
         playing: false,
         currentTime: 0,
-        duration: 0
+        duration: 0,
+        ended: false,
     };
 
     get audioList(): IAudio[] {
@@ -30,6 +31,10 @@ export class AudioService {
 
             const handler = (event: Event) => {
                 this.updateStateEvents(event);
+
+                if (event.type === 'ended') {
+                    observer.next('ended');
+                }
             };
 
             this.addEvents(this.audioObj, this.audioEvents, handler);
@@ -91,14 +96,19 @@ export class AudioService {
             case 'playing':
                 this.state.playing = true;
                 this.state.duration = this.audioObj.duration;
+                this.state.ended = false;
                 break;
             case 'pause':
                 this.state.playing = false;
+                break;
+            case 'ended':
+                this.state.ended = true;
                 break;
         }
     }
 
     private resetState(): void {
         this.state.currentTime = 0;
+        this.state.ended = false;
     }
 }

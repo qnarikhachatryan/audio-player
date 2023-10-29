@@ -31,13 +31,13 @@
 <div class="media-footer">
     <mat-toolbar color="primary">
         <mat-toolbar-row>
-            <mat-slider class="time-slider" min="1" [max]="state.duration" step="1" (input)="onSliderChangeEnd($event)">
+            <mat-slider class="time-slider" min="1" [disabled]="!currentAudio" [max]="state.duration" step="1" (input)="onSliderChangeEnd($event)">
                 <input matSliderThumb [value]="state.currentTime">
             </mat-slider>
         </mat-toolbar-row>
 
         <mat-toolbar-row class="media-action-bar">
-            <button mat-button [disabled]="isFirstPlaying()" (click)="previous()">
+            <button mat-button [disabled]="isFirstPlaying() || !currentAudio" (click)="previous()">
                 <mat-icon>skip_previous</mat-icon>
             </button>
 
@@ -49,7 +49,7 @@
                 <mat-icon>pause</mat-icon>
             </button>
 
-            <button mat-button [disabled]="isLastPlaying()" (click)="next()">
+            <button mat-button [disabled]="isLastPlaying() || !currentAudio" (click)="next()">
                 <mat-icon>skip_next</mat-icon>
             </button>
         </mat-toolbar-row>
