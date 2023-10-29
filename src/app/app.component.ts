@@ -10,7 +10,7 @@ import { AudioPlayerComponent } from "@pages/audio-player";
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
     standalone: true,
-    imports: [CommonModule, AudioPlayerComponent, MatToolbarModule],
+    imports: [AudioPlayerComponent, MatToolbarModule],
 })
 
 export class AppComponent {
