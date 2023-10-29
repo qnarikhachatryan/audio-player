@@ -1,0 +1,28 @@
+.media-footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  .time-slider {
+    width: 100% !important;
+    margin-left: 20px;
+    margin-right: 20px;
+
+    --mdc-slider-active-track-color: #BEBEBE;
+    --mdc-slider-inactive-track-color: #fff;
+    --mdc-slider-handle-color: #fff;
+    --mdc-slider-focus-handle-color: #fff;
+    --mdc-slider-hover-handle-color: #fff;
+    --mat-mdc-slider-hover-ripple-color: transparent;
+    --mat-mdc-slider-focus-ripple-color: transparent;
+  }
+  .media-action-bar {
+    width: 100%;
+    padding: 2.5rem;
+    justify-content: center;
+    .mat-icon {
+      height: 48px !important;
+      width: 48px !important;
+      font-size: 48px !important;
+    }
+  }
+}
